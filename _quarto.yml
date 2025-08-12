@@ -1,6 +1,10 @@
 project:
   type: website
-
+  render:
+    - index.qmd
+    - about.qmd
+    - testing.qmd
+    
 website:
   title: "portfolio"
   navbar:
@@ -8,7 +12,10 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
+      - testing.qmd
 
+
+    
 format:
   html:
     theme: cosmo
