@@ -1,7 +1,10 @@
 ---
 title: "Clean data"
-#| message: false
-#| warning: false
+
+execute:
+  echo: false
+  message: false
+  warning: false
 ---
 
 ```{r}

@@ -2,26 +2,20 @@
 title: "Flipping hell: The absolute hack of the data in Ireland's property price register."
 editor: visual
 always_allow_html: true
+execute:
+  echo: false
+  message: false
+  warning: false
 ---
 
-To do
-
--   download most recent data
-
--   Remove line plot line for most recent year, or maybe stick it in its own plot
-
--   pretend update
-
 ```{r}
-#| echo: false
 source('./utils/plot_theme.R')
 source('./utils/vector_count_dfrm.R')
 # file.edit('./utils/plot_theme.R')
 ```
 
 ```{r}
-#| echo: false
-# install.packages('scico')
+
 library(tidyverse)
 library(lubridate)
 library(scico)
@@ -32,12 +26,13 @@ library(viridis)
 
 ```{r}
 data_folder = file.path(getwd(), "data")
-if (!dir.exists(data_folder)){dir.create(data_folder)} else {print("Dir already exists!")}
+if (!dir.exists(data_folder)){dir.create(data_folder)} 
+# else {print("Dir already exists!")}
 ```
 
 ## Introduction
 
-The property price index is a truly valuable resource which lists the price of every gaff sold in (the twenty-six counties of) Ireland since 2010, but unfortunately, the database was designed by people who 'know the price of everything but the value of nothing'. Allegedly \[insert reference\], the data has been uploaded one entry at a time, by solicitors' secretaries, many of whom express their humanity through misspelling and irregular punctuation, while several express their Irishness with the *cúpla focail*. This valuable dataset is thus a bit like being given a big five-bed house for a holiday but having to wade through the previous tenants' filth.
+The property price index is a valuable resource which lists the price of every property sold since 2010 in (the twenty-six counties of) Ireland, but unfortunately, the database was designed by people who 'know the price of everything but the value of nothing'. Allegedly, the data has been uploaded one entry at a time, by solicitors' secretaries, many of whom express their humanity through misspelling and irregular punctuation, while several express their Irishness with the *cúpla focail*. This valuable dataset is thus a bit like being given a big five-bed house for a free holiday but having to wade through the previous tenants' filth.
 
 My role here is to take this unkempt raw data and flip it, scrubbing it goodo, and presenting it back to you, the reader, as an inhabitable space which, I hope, you can explore with some pleasure.
 
@@ -80,15 +75,17 @@ property_raw <- bind_rows(property_raw_until_last_year, property_raw_this_year)
 
 ```
 
-Here are the most recent sales
+Here's the data contained in the first and last rows of the data, transposed for readability
 
 ```{r}
+#| echo: true
 tail(property_raw)
+property_raw[c(1,nrow(property_raw)),] %>% t()
 ```
 
 ## What is contained in the data?
 
-Each row represents the sale of a single property, and the sale date is included along with the sale price and the address. It is thus possible to see how much your neighbours paid for their gaff or indeed any property sold in Ireland since 2010. There is a useful column for the county and eircodes have been added to the data in recent years. There is some secondary data about the nature of the sale, such as whether the property was sold at the market price or not, whether VAT was charged, whether the house was new or second-hand. A column is included for the size of the property, roughly equating to tiny (\<38sq. m), large (\> 125 sq.m) or anything in-between.
+Each row in the dataset represents the sale of a single property. The sale date is included along with the sale price and the address. It is thus possible to see how much your neighbours paid for their gaff or indeed any property sold in Ireland since 2010. There is a useful column for the county and eircodes have been added to the data in recent years. There is some secondary data about the nature of the sale, such as whether the property was sold at the market price or not, whether VAT was charged, whether the house was new or second-hand. A column is included for the size of the property, roughly equating to tiny (\<38sq. m), large (\> 125 sq.m) or anything in-between.
 
 The very first thing to do is to clean the column names which were either designed for humans to read on a spreadsheet, or, perhaps more likely, conceived as a set of instructions for those entering sale details into the database. I want them in a format suitable for coding in R. No capitals, spaces or excess descriptive baggage. First off, I will work create a copy of the property_raw dataframe so that I can start again every time I make an error, without having to read in the data again.
 
