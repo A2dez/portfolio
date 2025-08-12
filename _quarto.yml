@@ -4,7 +4,7 @@ project:
     - index.qmd
     - about.qmd
     - chapter_1.qmd
-    
+   
 website:
   title: "portfolio"
   navbar:
@@ -12,8 +12,9 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
-      - testing.qmd
-
+      # - testing.qmd
+      - href: chapter_1.qmd
+        text: Property prices
     
 format:
   html:
@@ -22,4 +23,6 @@ format:
     toc: true
 
 editor: visual
+execute:
+  freeze: auto
 

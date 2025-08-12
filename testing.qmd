@@ -1,5 +1,7 @@
 ---
 title: "Clean data"
+#| message: false
+#| warning: false
 ---
 
 ```{r}
