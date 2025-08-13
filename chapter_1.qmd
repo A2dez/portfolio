@@ -30,7 +30,9 @@ if (!dir.exists(data_folder)){dir.create(data_folder)}
 # else {print("Dir already exists!")}
 ```
 
-![*The price of houses in Ireland just keeps on rising*](images/prices_rise-01.PNG){alt="The price of houses in Ireland just keeps on rising"}
+![*Since bottoming out in 2013, after The Crash, the price of houses in Ireland has just kept on rising.* ](images/property_prices_since_2010.PNG)
+
+![*Rural counties were slower to become expensive, but in 2025 a house in Westmeath is as expensive as one in Dublin in 2017.*](images/everywhere_is_expensive_now.PNG)
 
 ## Introduction
 
@@ -459,7 +461,25 @@ plot <-
 # facet_wrap(~new)
 plot #+ facet_wrap(~new)
 
-ggplotly(plot)
+# ggplotly(plot)
+```
+
+```{r}
+
+  # (county_v_year %>% 
+  # ggplot() +
+  # geom_tile(aes (x = year, #paste(year,quarter),  #paste(year,month), 
+  #             y = county, 
+  #             fill = median_price + seq_along(county)) ) +
+  # # scale_fill_viridis(option = 'B')
+  # scale_fill_scico(palette = 'roma', trans = 'log2') +
+  # labs(title = "Almost everywhere is expensive now") +
+  # guides(fill=guide_legend(title="Median price")) +
+  # ylab('')+
+  # my_theme) %>% 
+  # # ggplotly() #lajolla
+
+
 ```
 
 ```{r}
