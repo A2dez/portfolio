@@ -30,6 +30,8 @@ if (!dir.exists(data_folder)){dir.create(data_folder)}
 # else {print("Dir already exists!")}
 ```
 
+![*The price of houses in Ireland just keeps on rising*](images/prices_rise-01.PNG){alt="The price of houses in Ireland just keeps on rising"}
+
 ## Introduction
 
 The property price index is a valuable resource which lists the price of every property sold since 2010 in (the twenty-six counties of) Ireland, but unfortunately, the database was designed by people who 'know the price of everything but the value of nothing'. Allegedly, the data has been uploaded one entry at a time, by solicitors' secretaries, many of whom express their humanity through misspelling and irregular punctuation, while several express their Irishness with the *cúpla focail*. This valuable dataset is thus a bit like being given a big five-bed house for a free holiday but having to wade through the previous tenants' filth.
@@ -45,7 +47,7 @@ The data is stored [here](https://www.propertypriceregister.ie/website/npsra/ppr
 property_rds_filepath <- './data/property_raw_all_years_except_this_one.rds'
 # "./data/property_raw.rds"
 current_year = format(Sys.Date(),"%Y") %>% as.numeric
-relevant_years = 2015:current_year
+relevant_years = 2010:current_year
 #templated version of the url containing CSVs for each year
 url_csv_addresses = paste0('https://www.propertypriceregister.ie/website/npsra/ppr/npsra-ppr.nsf/Downloads/PPR-',relevant_years, '.csv/$FILE/PPR-', relevant_years, '.csv')
 
@@ -79,7 +81,7 @@ Here's the data contained in the first and last rows of the data, transposed for
 
 ```{r}
 #| echo: true
-tail(property_raw)
+
 property_raw[c(1,nrow(property_raw)),] %>% t()
 ```
 
@@ -109,6 +111,13 @@ property <-
          month = month(date, label = T),
          day = wday(date, label = T),
          quarter = quarter(date, with_year = T))
+
+property$province <- fct_collapse(property$county, 
+                                  "Leinster" = c('Dublin', 'Laois', 'Meath', "Kilkenny", "Carlow", "Kildare", "Wicklow", 
+                                                 'Wexford',  'Westmeath', 'Louth', 'Offaly','Longford'),
+                                  "Munster" = c("Cork", 'Clare', 'Limerick', 'Tipperary', 'Waterford', 'Kerry'), 
+                                  'Connacht-Ulster' = c('Galway','Sligo', 'Mayo', 'Leitrim', 'Roscommon', 'Donegal', 'Monaghan', 'Cavan') ,
+)
 ```
 
 So the simplest thing to look at is how many properties have been sold each year since they started collecting the data.
@@ -263,32 +272,206 @@ ggplotly(x)
 
 ```
 
-Price by year, medians and boxplots
+### Eircodes
 
-Before analysing prices, we need to clean up the price column which includes unwanted commas, badly imported euro symbols, and some unexpected spare change after the decimal point. The first thing to check is what kind of non-digits are in there, and then we can remove them. It turns out that there is nothing except the three categories above, all of which saw in the in the first few rows.
+Recent years have contained eircode data which is a great addition, but unfortunately that column has been added at the expense of an postcode column which, while sparsely populated and confined solely to Dublin, will remain a useful bit of data when we are trying to find which towns and villages belong in which part of Dublin.
+
+Before we examine eircode data, we need to convert the 'date' column from a string to an actual date variable, and also extract the months, weeks, day and day of the week, as this may be valuable data for modelling later.
 
 ```{r}
-property$price %>% str_extract_all('\\D') %>% unlist %>% table() 
+#| echo: false
+#| message: false
+#| warning: false
+eircode_data <- property %>% 
+  mutate(eircode_given = !is.na(eircode)) %>% 
+  group_by(year) %>% 
+  count(eircode_given, name = "sales") 
+
+# eircode_data %>% 
+#   pivot_wider(names_from = eircode_given, 
+#               values_from = sales) %>% 
+#   arrange(year %>% desc)
 
 ```
 
-Each price has a euro-symbol, read in here as a unicode character '\u0080', and a decimal point
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#To build the back-to-back barplot, we need to centre the data around zero
+#This can be done by multiplying the False scores by -1. 
+#Below we need to change the values on the axis. 
+(eircode_data %>% 
+  mutate(sales = if_else(eircode_given == F, (sales * -1), sales), 
+        `Eircode?` = if_else(eircode_given == T, 'Yes', 'No'),
+        year = year %>% factor) %>% 
+  ggplot(aes(x = year,
+             y = sales, 
+             fill = `Eircode?`)) +
+  geom_bar(stat = 'identity') + 
+  #Much easier to read the effect we are looking at
+  coord_flip() +
+  #Viridis(2) is too yello and hard to read
+  scale_fill_manual(values = viridis(3)[1:2] ) +
+  #take the absolute value of the 'breaks' otherwise x-values would be negative
+  scale_y_continuous(labels = abs) +
+  labs(subtitle = "How many eircodes were included in each year's sales data?", 
+       title = "The rise of Eircodes",
+       y = 'Number of houses sold in Ireland', 
+       #my geography teacher would have docked me a mark for not labelling this axis, but the years are clearly years. 
+       x = '') +
+  my_theme ) #%>%  ggplotly
+  # theme(legend.position = 'none') #i debated removing this. 
+
+
+```
+
+### House prices by county
 
 ```{r}
+# Before analysing prices, we need to clean up the price column which includes unwanted commas, badly imported euro symbols, and some unexpected spare change after the decimal point. The first thing to check is what kind of non-digits are in there, and then we can remove them. It turns out that there is nothing except the three categories above, all of which saw in the in the first few rows.
+
+# property$price %>% str_extract_all('\\D') %>% unlist %>% table() 
+
+
+property$price <- 
+  property$price %>% 
+  str_replace_all("\\u0080|,|\\.\\d{2}", '') %>% 
+  as.numeric
+
+
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+property_22 <- property %>% filter(year > 2021, 
+                                   price > 8e4 , 
+                                   price < 1e6)
+
+property_22 <-
+property_22 %>% 
+  group_by(county) %>% 
+  mutate(median_price = median(price)) %>% 
+  ungroup %>% 
+  mutate( county = county %>% factor %>% fct_reorder(median_price) )
+
+
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+         
+  property_22 %>% 
+  ggplot(aes(x = price, 
+             y = county, 
+             fill = median_price)) +
+  geom_boxplot(outlier.size = 0.01) +
+  # scale_x_continuous(trans = 'log2') +
+    scale_fill_viridis() +
+    # facet_wrap(~new) +
+    labs(title = 'Price of houses by county (since 2022)') +
+    my_theme
+  
+
+```
+
+```{r}
+annual_price <-
+  property %>% 
+  group_by(year) %>% 
+  summarise(price = median(price))
+  # mutate(year = year %>% as.factor) %>% 
+(annual_price %>% 
+  ggplot(aes(x = year  , 
+             y = price)) +
+  geom_line(size = 2) +
+  geom_point(size = 4, color = 'orange') +
+
+    # scale_x_discrete() 
+  scale_x_continuous(breaks = annual_sales$year) + #, position = "top" doeesn't work automatically in ggplotly
+    #round max sales up to nearest 10k then add 5k for spacing
+  scale_y_continuous(expand = c(0, 0), limits = c(0, max(annual_price$price) + 20000)) +
+  labs(title = 'Median price of properties sold in Ireland, 2010-present', 
+       y = '', x = '') +
+  my_theme
+) %>% 
+  ggplotly
+```
+
+```{r}
+
+# Each price has a euro-symbol, read in here as a unicode character '\u0080', and a decimal point
 # filter(property, str_detect(price, '^\u0080') == T) %>% View
 # str_extract(property$price, 1) %>% table
 ```
 
 ```{r}
-# str_extract(property$price, '\\d{2}$') %>% 
-#   as.numeric %>% 
-#   table %>% 
+
+# county_v_year <- 
+#   property %>% 
+#   filter(price > 8e4 , price < 1e6) %>% 
+#   mutate(county = factor(county)) %>% 
+#   group_by(province, county, year, quarter, new) %>% 
+#   #group_by(county, year %>% factor) %>% 
+#   summarise (count = n(),
+#              median_price = median(price)) %>% 
+#   ungroup %>% 
+#   group_by(county) %>% 
+#   mutate(price_overall = mean(median_price)) %>% 
+#   ungroup %>% 
+#   mutate (county = county %>% fct_reorder(price_overall))
+
+
+
+county_v_year <- property %>% 
+    filter(price > 8e4 , price < 1e6) %>% 
+  mutate(county = factor(county)) %>% 
+  group_by( county, year, quarter, new) %>% 
+  summarise (count = n(), 
+             median_price = median(price)) %>% 
+  ungroup %>% 
+  group_by(county) %>% 
+  mutate(price_overall = mean(median_price)) %>% 
+  ungroup %>% 
+  mutate (county = county %>% fct_reorder(price_overall))
+
+
+# county_v_year %>% View
+
+plot <- 
+  county_v_year %>% 
+  ggplot() +
+  geom_tile(aes (x = year, #paste(year,quarter),  #paste(year,month), 
+              y = county, 
+              fill = median_price + seq_along(county)) ) +
+  # scale_fill_viridis(option = 'B')
+  scale_fill_scico(palette = 'roma', trans = 'log2') +
+  labs(title = "Almost everywhere is expensive now") +
+  guides(fill=guide_legend(title="Median price")) +
+  ylab('')+
+  my_theme #lajolla
+
+  
+# facet_wrap(~new)
+plot #+ facet_wrap(~new)
+
+ggplotly(plot)
+```
+
+```{r}
+# str_extract(property$price, '\\d{2}$') %>%
+#   as.numeric %>%
+#   table %>%
 #   as.data.frame() %>%
-#   select(cent = '.', 
-#          count = Freq) %>% 
-#   mutate(group = as.numeric(cent) %% 10) %>% 
-#   ggplot(aes(x = as.factor(cent), 
-#              y = count, 
+#   select(cent = '.',
+#          count = Freq) %>%
+#   mutate(group = as.numeric(cent) %% 10) %>%
+#   ggplot(aes(x = as.factor(cent),
+#              y = count,
 #              fill = as.factor(group))) +
 #      geom_bar(stat="identity") +
 #   scale_y_continuous(trans = 'log2') +
@@ -296,7 +479,7 @@ Each price has a euro-symbol, read in here as a unicode character '\u0080', and 
 #   facet_wrap(~group, ncol = 5) +
 #   theme_void()
 #   my_theme
-#   
+# 
 
 
 
