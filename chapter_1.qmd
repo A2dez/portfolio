@@ -30,7 +30,9 @@ if (!dir.exists(data_folder)){dir.create(data_folder)}
 # else {print("Dir already exists!")}
 ```
 
-![*Since bottoming out in 2013, after The Crash, the price of houses in Ireland has just kept on rising.* ](images/property_prices_since_2010.PNG)
+![*Since bottoming out in 2013, after The Crash, the price of houses in Ireland has just kept on rising.*](images/property_prices_since_2010.PNG)
+
+![](images/property_prices_by_county.PNG)
 
 ![*Rural counties were slower to become expensive, but in 2025 a house in Westmeath is as expensive as one in Dublin in 2017.*](images/everywhere_is_expensive_now.PNG)
 
