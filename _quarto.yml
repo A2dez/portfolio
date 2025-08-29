@@ -15,7 +15,8 @@ website:
       # - testing.qmd
       - href: chapter_1.qmd
         text: Property prices
-    
+      - href: thespellingof/spelling/th_affix.qmd
+        text: Spelling    
 format:
   html:
     theme: cosmo
@@ -25,4 +26,3 @@ format:
 editor: visual
 execute:
   freeze: auto
-
