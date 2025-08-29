@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>About – portfolio</title>
+<title>Clean data – portfolio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -100,6 +100,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="site_libs/plotly-binding-4.11.0/plotly.js"></script>
+
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
 
 
 <link rel="stylesheet" href="styles.css">
@@ -127,16 +145,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./chapter_1.html"> 
-<span class="menu-text">Property prices</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./thespellingof/spelling/th_affix.html"> 
-<span class="menu-text">Spelling</span></a>
+    <a class="nav-link active" href="./testing.html" aria-current="page"> 
+<span class="menu-text">Clean data</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -149,15 +163,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#flipping-hell-the-absolute-state-of-irelands-property-price-index." id="toc-flipping-hell-the-absolute-state-of-irelands-property-price-index." class="nav-link active" data-scroll-target="#flipping-hell-the-absolute-state-of-irelands-property-price-index.">Flipping hell: the absolute state of Ireland’s property price index.</a>
+  <ul class="collapse">
+  <li><a href="#what-is-contained-in-the-data" id="toc-what-is-contained-in-the-data" class="nav-link" data-scroll-target="#what-is-contained-in-the-data">What is contained in the data?</a></li>
+  <li><a href="#column-names" id="toc-column-names" class="nav-link" data-scroll-target="#column-names">Column names</a></li>
+  <li><a href="#dates-and-sales" id="toc-dates-and-sales" class="nav-link" data-scroll-target="#dates-and-sales">Dates and sales</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">About</h1>
+<h1 class="title">Clean data</h1>
 </div>
 
 
@@ -174,15 +199,105 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>About this site</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"hello world"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<pre><code>[1] "hello world"</code></pre>
+</div>
+</div>
+<section id="flipping-hell-the-absolute-state-of-irelands-property-price-index." class="level2">
+<h2 class="anchored" data-anchor-id="flipping-hell-the-absolute-state-of-irelands-property-price-index.">Flipping hell: the absolute state of Ireland’s property price index.</h2>
+<p>The property price index is a truly valuable resource which lists the price of every gaff sold in (the twenty-six counties of) Ireland since 2010. That’s 155362 house sales at the time of writing. Unfortunately, the database was designed by people who ‘know the price of everything but the value of nothing’. Allegedly, the data has been uploaded one entry at a time, by solicitors’ secretaries, many of whom express their humanity through misspelling and irregular punctuation, while several express their Irishness with the <em>cúpla focail</em>. Understanding the data is thus a bit like being given a big five-bed house for a holiday but having to wade through the previous tenants’ filth.</p>
+<p>My role here is to take this unkempt raw data and flip it, scrubbing it goodo, and presenting it back to you, the reader, as an inhabitable space which, I hope, you can explore with some pleasure.</p>
+<section id="what-is-contained-in-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-contained-in-the-data">What is contained in the data?</h3>
+<p>Let’s have quick look at the last few rows.vect</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 9
+  `Date of Sale (dd/mm/yyyy)` Address            County Eircode `Price (\u0080)`
+  &lt;chr&gt;                       &lt;chr&gt;              &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;           
+1 01/08/2025                  Kilruane, LISCAUL… Rosco… &lt;NA&gt;    "\u0080325,000.…
+2 01/08/2025                  Rathurtin, Clonro… Wexfo… &lt;NA&gt;    "\u0080339,207.…
+3 01/08/2025                  ROSANNA, TIPPERARY Tippe… &lt;NA&gt;    "\u0080394,000.…
+4 01/08/2025                  SADDLESTOWN, STAM… Meath  K32PD63 "\u0080210,000.…
+5 01/08/2025                  SPENCER PARK, CAS… Mayo   &lt;NA&gt;    "\u0080330,000.…
+6 01/08/2025                  TULLIGBEG, KILLOR… Kerry  V93P3C9 "\u0080250,000.…
+# ℹ 4 more variables: `Not Full Market Price` &lt;chr&gt;, `VAT Exclusive` &lt;chr&gt;,
+#   `Description of Property` &lt;chr&gt;, `Property Size Description` &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>Each house sale has a date, a sale price, and an address, so that you can spy on your neighbours, or eye up the old price of a gaff you are interested in. If it has been sold since 2010. There is a useful column for the county so that we can divvy up the data into 26 important groups.</p>
+<p>There is also some secondary data, such as whether the property was sold at the market price or not, whether VAT was charged, whether the house was new or second-hand. Occasionally a size category is included,roughly equating to tiny (&lt;38sq. m), large (&gt; 125 sq.m) or anything in-between.</p>
+<p>We will look at each of these columns in turn and, in doing so, I will clean them up, before plotting the cleaner version of the data.</p>
+</section>
+<section id="column-names" class="level3">
+<h3 class="anchored" data-anchor-id="column-names">Column names</h3>
+<p>The first thing to note is that the column names need cleaning as they were designed for humans to read rather than for people telling computers what to do.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Date of Sale (dd/mm/yyyy)" "Address"                  
+[3] "County"                    "Eircode"                  
+[5] "Price (\u0080)"            "Not Full Market Price"    
+[7] "VAT Exclusive"             "Description of Property"  
+[9] "Property Size Description"</code></pre>
+</div>
+</div>
+<p>Spaces are an anathema to coders so they need to go and they can be replaced with underscore, where necessary. Lowercase letters are easier to code with, mostly, because you don’t have to remember when you put capitals in. Ideally we’d just take the first word of the column, and we could rename the columns formulaically, e.g with a regex such as <code>.*?(?=\s|$)</code>, but the first word may not be the most important. ‘Property Size Description’ is better represented by ‘size’ than ‘property’ or ‘description’. Thus we can rename the columns manually:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "date"         "address"      "county"       "eircode"      "price"       
+[6] "market_price" "vat"          "new"          "size"        </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># It should be noted that there are a few houses with eircodes befored 2020</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># property %&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(year &lt; 2021, !is.na(eircode)) %&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  View</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># property_raw %&gt;%</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># left_join(postcode_dfrm)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="dates-and-sales" class="level3">
+<h3 class="anchored" data-anchor-id="dates-and-sales">Dates and sales</h3>
+<p>So the simplest thing to look at is how many properties have been sold each year since they started collecting the data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>annual_sales <span class="ot">&lt;-</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  property <span class="sc">%&gt;%</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sales =</span> <span class="fu">n</span>())</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># mutate(year = year %&gt;% as.factor) %&gt;% </span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>(annual_sales <span class="sc">%&gt;%</span> </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year  , </span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> sales)) <span class="sc">+</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">'orange'</span>) <span class="sc">+</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># scale_x_discrete() </span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> annual_sales<span class="sc">$</span>year) <span class="sc">+</span> <span class="co">#, position = "top" doeesn't work automatically in ggplotly</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">#round max sales up to nearest 10k then add 5k for spacing</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(annual_sales<span class="sc">$</span>sales) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="sc">-</span><span class="dv">4</span>) <span class="sc">+</span> <span class="dv">5000</span>)) <span class="sc">+</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Number of properties sold in Ireland each year, 2010-present'</span>, </span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">''</span>, <span class="at">x =</span> <span class="st">''</span>) <span class="sc">+</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    my_theme) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  ggplotly </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-1971d0110da4262db5a0" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-1971d0110da4262db5a0">{"x":{"data":[{"x":[2023,2024,2025],"y":[63300,61258,30804],"text":["year: 2023<br />sales: 63300","year: 2024<br />sales: 61258","year: 2025<br />sales: 30804"],"type":"scatter","mode":"lines+markers","line":{"width":7.559055118110237,"color":"rgba(0,0,0,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","marker":{"autocolorscale":false,"color":"rgba(255,165,0,1)","opacity":1,"size":15.118110236220474,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(255,165,0,1)"}},"frame":null}],"layout":{"margin":{"t":42.168534661685349,"r":7.3059360730593621,"b":24.508094645080945,"l":37.525944375259442},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"<b> <i> Number of properties sold in Ireland each year, 2010-present <\/i> <\/b>","font":{"color":"rgba(0,0,0,1)","family":"","size":15.940224159402243},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[2022.9000000000001,2025.0999999999999],"tickmode":"array","ticktext":["2023","2024","2025"],"tickvals":[2023,2024,2025],"categoryorder":"array","categoryarray":["2023","2024","2025"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":10.62681610626816},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"<b>  <\/b>","font":{"color":"rgba(0,0,0,1)","family":"","size":13.283520132835198}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0,65000],"tickmode":"array","ticktext":["0","20000","40000","60000"],"tickvals":[0,20000,40000,60000],"categoryorder":"array","categoryarray":["0","20000","40000","60000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":10.62681610626816},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"<b>  <\/b>","font":{"color":"rgba(0,0,0,1)","family":"","size":13.283520132835198}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","layer":"below","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"30ec3ca16160":{"x":{},"y":{},"type":"scatter"},"30ec1aeb9e2":{"x":{},"y":{}}},"cur_data":"30ec3ca16160","visdat":{"30ec3ca16160":["function (y) ","x"],"30ec1aeb9e2":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
