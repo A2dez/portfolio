@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://A2dez.github.io/portfolio/chapter_1.html</loc>
-    <lastmod>2025-08-29T07:20:19.877Z</lastmod>
-  </url>
-  <url>
-    <loc>https://A2dez.github.io/portfolio/index.html</loc>
-    <lastmod>2025-08-29T07:20:19.878Z</lastmod>
+    <loc>https://A2dez.github.io/portfolio/thespellingof/spelling/th_affix.html</loc>
+    <lastmod>2025-08-29T07:20:57.822Z</lastmod>
   </url>
   <url>
     <loc>https://A2dez.github.io/portfolio/about.html</loc>
-    <lastmod>2025-08-29T07:20:19.877Z</lastmod>
+    <lastmod>2025-08-29T07:20:57.820Z</lastmod>
+  </url>
+  <url>
+    <loc>https://A2dez.github.io/portfolio/index.html</loc>
+    <lastmod>2025-08-29T07:20:57.821Z</lastmod>
+  </url>
+  <url>
+    <loc>https://A2dez.github.io/portfolio/chapter_1.html</loc>
+    <lastmod>2025-08-29T07:20:57.820Z</lastmod>
   </url>
 </urlset>
