@@ -4,6 +4,7 @@ project:
     - index.qmd
     - about.qmd
     - chapter_1.qmd
+    - thespellingof/spelling/th_affix.qmd
    
 website:
   title: "portfolio"
