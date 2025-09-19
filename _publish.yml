@@ -1,4 +1,4 @@
 - source: project
   netlify:
-    - id: "390ebe65-47e9-4e77-b542-a79c67139d3a"
-      url: "https://a2dez.netlify.app/"
+    - id: 390ebe65-47e9-4e77-b542-a79c67139d3a
+      url: 'https://a2dez.netlify.app'
